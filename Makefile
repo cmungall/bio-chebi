@@ -8,8 +8,13 @@ HAS_BIO_ROLE = RO:0002260
 HAS_ROLE = RO:0000087
 
 all: substance-with-role.obo substance-with-role.owl
+test: all
+clean:
+	test -f role.obo && rm role.obo
+
 seed: bio-chebi.owl
 
+# TODO
 bio-chebi.owl: $(GOX)/bio-chebi.owl
 	cp $< $@
 
