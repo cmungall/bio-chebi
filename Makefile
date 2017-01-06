@@ -11,16 +11,18 @@ all: substance-with-role.obo substance-with-role.owl
 test: all
 clean:
 	test -f role.obo && rm role.obo
+	test -f chebi.obo && rm chebi.obo
 
 seed: bio-chebi.owl
 
 # TODO
-bio-chebi.owl: $(GOX)/bio-chebi.owl
-	cp $< $@
+bio-chebi.owl: chebi.obo
+	owltools --create-biochebi -o $@ -c $<
 
 # TODO: trigger
 chebi.obo:
 	wget $(OBO)/chebi.obo
+.PRECIOUS: chebi.obo
 
 chebi.owl: chebi.obo
 	robot convert -i $< -o $@
